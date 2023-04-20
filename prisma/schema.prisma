@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Bairro {
+  id     String @id @unique @default(uuid())
+  bairro String
+  ruas   Rua[]
+
+  @@map("bairro")
+}
+
+model Rua {
+  id           String        @id @unique @default(uuid())
+  rua          String
+  bairroId     String?
+  clientes     Cliente[]
+  funcionarios Funcionario[]
+  Bairro       Bairro?       @relation(fields: [bairroId], references: [id])
+
+  @@index([bairroId], map: "rua_bairroId_fkey")
+  @@map("rua")
+}
+
+model Funcao {
+  id          String        @id @unique @default(uuid())
+  funcao      String
+  fucionarios Funcionario[]
+
+  @@map("funcao")
+}
+
+model Tipo {
+  id       String    @id @unique @default(uuid())
+  tipo     String
+  produtos Produto[]
+
+  @@map("tipo")
+}
+
+model Cliente {
+  id             String   @id @unique @default(uuid())
+  nome           String
+  cpf            String   @unique
+  telefone       String
+  numeroEndereco String
+  ruaId          String?
+  Rua            Rua?     @relation(fields: [ruaId], references: [id])
+  compras        Compra[]
+
+  @@index([ruaId], map: "cliente_ruaId_fkey")
+  @@map("cliente")
+}
+
+model Funcionario {
+  id             String   @id @unique @default(uuid())
+  nome           String
+  cpf            String   @unique
+  telefone       String
+  numeroEndereco String
+  ruaId          String?
+  funcaoId       String?
+  compras        Compra[]
+  Funcao         Funcao?  @relation(fields: [funcaoId], references: [id])
+  Rua            Rua?     @relation(fields: [ruaId], references: [id])
+
+  @@index([funcaoId], map: "funcionario_funcaoId_fkey")
+  @@index([ruaId], map: "funcionario_ruaId_fkey")
+  @@map("funcionario")
+}
+
+model Produto {
+  id              String                 @id @unique @default(uuid())
+  nome            String
+  preco           Float
+  descricao       String
+  tipoId          String?
+  Tipo            Tipo?                  @relation(fields: [tipoId], references: [id])
+  produtosCompras Produtos_das_compras[]
+
+  @@index([tipoId], map: "produto_tipoId_fkey")
+  @@map("produto")
+}
+
+model Compra {
+  id              String                 @id @unique @default(uuid())
+  precoCompra     Float
+  dataCompra      DateTime               @default(now())
+  clienteId       String?
+  funcionarioId   String?
+  Cliente         Cliente?               @relation(fields: [clienteId], references: [id])
+  Funcionario     Funcionario?           @relation(fields: [funcionarioId], references: [id])
+  produtosCompras Produtos_das_compras[]
+
+  @@index([clienteId], map: "compra_clienteId_fkey")
+  @@index([funcionarioId], map: "compra_funcionarioId_fkey")
+  @@map("compra")
+}
+
+model Produtos_das_compras {
+  id        String   @id @unique @default(uuid())
+  compraId  String?
+  produtoId String?
+  Compra    Compra?  @relation(fields: [compraId], references: [id])
+  Produto   Produto? @relation(fields: [produtoId], references: [id])
+
+  @@index([compraId], map: "produtos_das_compras_compraId_fkey")
+  @@index([produtoId], map: "produtos_das_compras_produtoId_fkey")
+  @@map("produtos_das_compras")
+}
