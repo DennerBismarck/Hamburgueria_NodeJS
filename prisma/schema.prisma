@@ -1,0 +1,127 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+//Configurações do banco de dados, no caso, MySQL
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+//Criando os Models
+//Criando Models de "Apoio", que se relacionam com os models principais.
+model Bairro {
+  id     String @id @unique @default(uuid())
+  bairro String
+  ruas   Rua[]
+
+  @@map("bairro")
+}
+
+model Rua {
+  id  String @id @unique @default(uuid())
+  rua String
+
+  Bairro   Bairro? @relation(fields: [bairroId], references: [id])
+  bairroId String?
+
+  clientes     Cliente[]
+  funcionarios Funcionario[]
+
+  @@map("rua")
+}
+
+model Funcao {
+  id     String @id @unique @default(uuid())
+  funcao String
+
+  fucionarios Funcionario[]
+
+  @@map("funcao")
+}
+
+model Tipo {
+  id   String @id @unique @default(uuid())
+  tipo String
+
+  produtos Produto[]
+
+  @@map("tipo")
+}
+
+//Criando models principais
+model Cliente {
+  id             String @id @unique @default(uuid())
+  nome           String
+  cpf            String @unique
+  telefone       String
+  numeroEndereco String
+
+  Rua   Rua?    @relation(fields: [ruaId], references: [id])
+  ruaId String?
+
+  compras Compra[]
+
+  @@map("cliente")
+}
+
+model Funcionario {
+  id             String @id @unique @default(uuid())
+  nome           String
+  cpf            String @unique
+  telefone       String
+  numeroEndereco String
+
+  Rua      Rua?    @relation(fields: [ruaId], references: [id])
+  ruaId    String?
+  Funcao   Funcao? @relation(fields: [funcaoId], references: [id])
+  funcaoId String?
+
+  compras Compra[]
+
+  @@map("funcionario")
+}
+
+model Produto {
+  id        String @id @unique @default(uuid())
+  nome      String
+  preco     Float
+  descricao String
+
+  Tipo   Tipo?   @relation(fields: [tipoId], references: [id])
+  tipoId String?
+
+  produtosCompras Produtos_das_compras[]
+
+  @@map("produto")
+}
+
+//Por fim, criando tabela de compra, que é um relacionamento entre as 3 principais
+model Compra {
+  id          String   @id @unique @default(uuid())
+  precoCompra Float
+  dataCompra  DateTime @default(now())
+
+  Cliente       Cliente?     @relation(fields: [clienteId], references: [id])
+  clienteId     String?
+  Funcionario   Funcionario? @relation(fields: [funcionarioId], references: [id])
+  funcionarioId String?
+
+  produtosCompras Produtos_das_compras[]
+
+  @@map("compra")
+}
+
+model Produtos_das_compras {
+  id String @id @unique @default(uuid())
+
+  Compra    Compra?  @relation(fields: [compraId], references: [id])
+  compraId  String?
+  Produto   Produto? @relation(fields: [produtoId], references: [id])
+  produtoId String?
+
+  @@map("produtos_das_compras")
+}
