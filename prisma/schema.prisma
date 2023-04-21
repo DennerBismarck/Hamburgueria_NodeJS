@@ -17,7 +17,7 @@ model Bairro {
 
 model Rua {
   id           String        @id @unique @default(uuid())
-  rua          String
+  nomerua          String   @unique
   bairroId     String?
   clientes     Cliente[]
   funcionarios Funcionario[]
@@ -76,7 +76,7 @@ model Funcionario {
 
 model Produto {
   id              String                 @id @unique @default(uuid())
-  nome            String
+  nome            String    @unique
   preco           Float
   descricao       String
   tipoId          String?
