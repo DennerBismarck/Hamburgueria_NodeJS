@@ -29,7 +29,7 @@ model Rua {
 
 model Funcao {
   id          String        @id @unique @default(uuid())
-  funcao      String
+  nomefuncao  String        @unique
   fucionarios Funcionario[]
 
   @@map("funcao")

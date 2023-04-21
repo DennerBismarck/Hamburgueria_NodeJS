@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { Request, Response } from "express";
 import { bairroRoutes } from "./bairro.routes";
+import { funcaoRoutes } from "./funcao.routes";
 
 const routes = Router();
 
@@ -10,5 +11,6 @@ routes.get("/", (req: Request, res: Response) => {
 
 //Criando rota de bairro
 routes.use("/bairro",bairroRoutes);
+routes.use("/funcao", funcaoRoutes);
 
 export{ routes };
