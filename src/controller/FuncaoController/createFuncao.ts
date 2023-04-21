@@ -15,7 +15,7 @@ export class CreateFuncaoController{
                 return res.status(StatusCodes.UNAUTHORIZED).send({error: "Função já existente."});
             }
             const create = new CriandoFuncao();
-            //Criando Bairro
+            //Criando tipo
             const funcao = await create.execute({nomefuncao});
                 
             return res.send({
