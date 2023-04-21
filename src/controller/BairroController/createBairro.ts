@@ -9,6 +9,8 @@ export class CreateBairroController{
     async handler(req: Request, res: Response){
         const {nomebairro} = req.body;
         try{
+            //Verificando se o bairro ja existe
+            
             if(await prisma.bairro.findUnique({where:{nomebairro:nomebairro}})){
                 return res.status(StatusCodes.UNAUTHORIZED).send({error: "Bairro já existente."});
             }
