@@ -5,6 +5,7 @@ import { funcaoRoutes } from "./funcao.routes";
 import { tipoRoutes } from "./tipo.routes";
 import { ruaRoutes } from "./rua.routes";
 import { clienteRoutes } from "./cliente.routes";
+import { produtoRoutes } from "./produto.routes";
 
 const routes = Router();
 
@@ -18,4 +19,6 @@ routes.use("/funcao", funcaoRoutes);
 routes.use("/tipo", tipoRoutes);
 routes.use("/rua", ruaRoutes);
 routes.use("/cliente", clienteRoutes);
+routes.use("/produto", produtoRoutes);
+
 export{ routes };
