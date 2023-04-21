@@ -8,9 +8,9 @@ datasource db {
 }
 
 model Bairro {
-  id     String @id @unique @default(uuid())
-  bairro String
-  ruas   Rua[]
+  id         String @id @unique @default(uuid())
+  nomebairro String @unique
+  ruas       Rua[]
 
   @@map("bairro")
 }
