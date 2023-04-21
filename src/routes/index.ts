@@ -6,6 +6,7 @@ import { tipoRoutes } from "./tipo.routes";
 import { ruaRoutes } from "./rua.routes";
 import { clienteRoutes } from "./cliente.routes";
 import { produtoRoutes } from "./produto.routes";
+import { funcionarioRoutes } from "./funcionario.routes";
 
 const routes = Router();
 
@@ -20,5 +21,6 @@ routes.use("/tipo", tipoRoutes);
 routes.use("/rua", ruaRoutes);
 routes.use("/cliente", clienteRoutes);
 routes.use("/produto", produtoRoutes);
+routes.use("/funcionario", funcionarioRoutes);
 
 export{ routes };
