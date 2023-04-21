@@ -37,7 +37,7 @@ model Funcao {
 
 model Tipo {
   id       String    @id @unique @default(uuid())
-  tipo     String
+  nometipo String    @unique
   produtos Produto[]
 
   @@map("tipo")
