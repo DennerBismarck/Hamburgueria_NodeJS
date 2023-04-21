@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { bairroRoutes } from "./bairro.routes";
 import { funcaoRoutes } from "./funcao.routes";
 import { tipoRoutes } from "./tipo.routes";
+import { ruaRoutes } from "./rua.routes";
 
 const routes = Router();
 
@@ -14,5 +15,6 @@ routes.get("/", (req: Request, res: Response) => {
 routes.use("/bairro",bairroRoutes);
 routes.use("/funcao", funcaoRoutes);
 routes.use("/tipo", tipoRoutes);
+routes.use("/rua", ruaRoutes);
 
 export{ routes };
