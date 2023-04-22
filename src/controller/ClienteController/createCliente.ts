@@ -20,7 +20,7 @@ export class CreateClienteController{
             }
 
             const create = new CriandoCliente();
-            //Criando rua
+            //Criando cliente
             const cliente = await create.execute({nome, cpf, telefone, numeroEndereco, ruaId});
                 
             return res.send({

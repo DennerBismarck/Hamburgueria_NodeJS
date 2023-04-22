@@ -8,7 +8,7 @@ export const prisma = new PrismaClient;
 export class ReadClienteController{
     async handler(req: Request, res: Response){
         
-        //Read das ruas
+        //Read dos clientes
         const read = new LendoCliente();
         const rua = await read.execute();      
         return res.status(201).json(rua)

@@ -6,12 +6,12 @@ export interface typeFuncionario{
     cpf: string
     telefone: string
     numeroEndereco: string
+    funcao: string
     ruaId: string
-    funcaoId: string
 }
 
 export class CriandoFuncionario{
-    async execute({nome,cpf, telefone, numeroEndereco, ruaId, funcaoId}: typeFuncionario): Promise<Funcionario>{
+    async execute({nome,cpf, telefone, numeroEndereco, ruaId, funcao}: typeFuncionario): Promise<Funcionario>{
         const novoFuncionario = await prisma.funcionario.create({
             data:{
                 nome: nome,
@@ -19,7 +19,7 @@ export class CriandoFuncionario{
                 telefone: telefone,
                 numeroEndereco: numeroEndereco,
                 ruaId: ruaId,
-                funcaoId: funcaoId,
+                funcao: funcao,
             }
         })
         return novoFuncionario

@@ -9,7 +9,7 @@ export async function updateClienteController(req: Request, res: Response) {
     const { nome, cpf, telefone, numeroEndereco, ruaId } = req.body
   
     try {
-      const recurso = await AtualizandoCliente({ id: String(id), nome, cpf, telefone, numeroEndereco, ruaId})
+      const recurso = await AtualizandoCliente({ id: String(id), nome, cpf, telefone, numeroEndereco, ruaId,})
       res.json(recurso)
     } catch (error) {
       res.status(500).json({ error: error.message })

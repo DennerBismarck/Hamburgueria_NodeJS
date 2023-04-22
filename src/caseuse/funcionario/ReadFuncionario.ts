@@ -7,7 +7,7 @@ export interface typeFuncionario{
     telefone: string
     numeroEndereco: string
     ruaId: string
-    funcaoId: string
+    funcao: string
 }
 
 export class LendoFuncionario{
@@ -24,13 +24,7 @@ export class LendoFuncionario{
                             }
                         }
                     },
-                },
-                //Fazendo com que apareça a função que o funcionário pertence
-                Funcao:{
-                    select:{
-                        nomefuncao: true,
-                    }
-                },
+                }
             }
 
         })

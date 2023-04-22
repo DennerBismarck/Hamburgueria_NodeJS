@@ -17,22 +17,14 @@ model Bairro {
 
 model Rua {
   id           String        @id @unique @default(uuid())
-  nomerua          String   @unique
   bairroId     String?
+  nomerua      String        @unique
   clientes     Cliente[]
   funcionarios Funcionario[]
   Bairro       Bairro?       @relation(fields: [bairroId], references: [id])
 
   @@index([bairroId], map: "rua_bairroId_fkey")
   @@map("rua")
-}
-
-model Funcao {
-  id          String        @id @unique @default(uuid())
-  nomefuncao  String        @unique
-  fucionarios Funcionario[]
-
-  @@map("funcao")
 }
 
 model Tipo {
@@ -64,19 +56,17 @@ model Funcionario {
   telefone       String
   numeroEndereco String
   ruaId          String?
-  funcaoId       String?
+  funcao       String
   compras        Compra[]
-  Funcao         Funcao?  @relation(fields: [funcaoId], references: [id])
   Rua            Rua?     @relation(fields: [ruaId], references: [id])
 
-  @@index([funcaoId], map: "funcionario_funcaoId_fkey")
   @@index([ruaId], map: "funcionario_ruaId_fkey")
   @@map("funcionario")
 }
 
 model Produto {
   id              String                 @id @unique @default(uuid())
-  nome            String    @unique
+  nome            String                 @unique
   preco           Float
   descricao       String
   tipoId          String?
