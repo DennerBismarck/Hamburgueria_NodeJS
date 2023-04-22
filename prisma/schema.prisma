@@ -27,14 +27,6 @@ model Rua {
   @@map("rua")
 }
 
-model Tipo {
-  id       String    @id @unique @default(uuid())
-  nometipo String    @unique
-  produtos Produto[]
-
-  @@map("tipo")
-}
-
 model Cliente {
   id             String   @id @unique @default(uuid())
   nome           String
@@ -56,7 +48,7 @@ model Funcionario {
   telefone       String
   numeroEndereco String
   ruaId          String?
-  funcao       String
+  funcao         String
   compras        Compra[]
   Rua            Rua?     @relation(fields: [ruaId], references: [id])
 
@@ -64,42 +56,17 @@ model Funcionario {
   @@map("funcionario")
 }
 
-model Produto {
-  id              String                 @id @unique @default(uuid())
-  nome            String                 @unique
-  preco           Float
-  descricao       String
-  tipoId          String?
-  Tipo            Tipo?                  @relation(fields: [tipoId], references: [id])
-  produtosCompras Produtos_das_compras[]
-
-  @@index([tipoId], map: "produto_tipoId_fkey")
-  @@map("produto")
-}
-
 model Compra {
-  id              String                 @id @unique @default(uuid())
-  precoCompra     Float
-  dataCompra      DateTime               @default(now())
-  clienteId       String?
-  funcionarioId   String?
-  Cliente         Cliente?               @relation(fields: [clienteId], references: [id])
-  Funcionario     Funcionario?           @relation(fields: [funcionarioId], references: [id])
-  produtosCompras Produtos_das_compras[]
+  id               String       @id @unique @default(uuid())
+  precoCompra      Float
+  dataCompra       DateTime     @default(now())
+  clienteId        String?
+  cardapiodacompra String
+  funcionarioId    String?
+  Cliente          Cliente?     @relation(fields: [clienteId], references: [id])
+  Funcionario      Funcionario? @relation(fields: [funcionarioId], references: [id])
 
   @@index([clienteId], map: "compra_clienteId_fkey")
   @@index([funcionarioId], map: "compra_funcionarioId_fkey")
   @@map("compra")
-}
-
-model Produtos_das_compras {
-  id        String   @id @unique @default(uuid())
-  compraId  String?
-  produtoId String?
-  Compra    Compra?  @relation(fields: [compraId], references: [id])
-  Produto   Produto? @relation(fields: [produtoId], references: [id])
-
-  @@index([compraId], map: "produtos_das_compras_compraId_fkey")
-  @@index([produtoId], map: "produtos_das_compras_produtoId_fkey")
-  @@map("produtos_das_compras")
 }
