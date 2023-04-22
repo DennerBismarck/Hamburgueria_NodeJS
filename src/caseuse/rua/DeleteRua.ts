@@ -1,4 +1,4 @@
-import { PrismaClient, Tipo } from '@prisma/client';
+import { PrismaClient, Rua } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export interface typeRua{

@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
-import { DeletandoTipo } from "../../caseuse/tipo/DeleteTipo";
+import { DeletandoCompra } from "../../caseuse/compra/DeleteCompra";
 
 export const prisma = new PrismaClient;
 
-export async function deleteTipoController(req: Request, res: Response) {
+export async function deleteCompraController(req: Request, res: Response) {
     const { id } = req.params  
     try {
-      const recurso = await DeletandoTipo({ id: String(id)})
+      const recurso = await DeletandoCompra({ id: String(id)})
       res.json(recurso)
     } catch (error) {
       res.status(500).json({ error: error.message })
