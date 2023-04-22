@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
-import { DeletandoFuncao } from "../../caseuse/funcao/DeleteFuncao";
+import { DeletandoFuncionario } from "../../caseuse/funcionario/DeleteFuncionario";
 
 export const prisma = new PrismaClient;
 
-export async function deleteFuncaoController(req: Request, res: Response) {
+export async function deleteFuncionarioController(req: Request, res: Response) {
     const { id } = req.params  
     try {
-      const recurso = await DeletandoFuncao({ id: String(id)})
+      const recurso = await DeletandoFuncionario({ id: String(id)})
       res.json(recurso)
     } catch (error) {
       res.status(500).json({ error: error.message })
