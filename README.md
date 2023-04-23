@@ -25,3 +25,4 @@ Agora é pro projeto estar rodando no seu computador.
 - Infelizmente não tive tempo para desenvolver mais a fundo a API (Com tecnologias mais avançadas e sistema de autenticação), tendo em vista que eu só tive até 21/04/2023 (Sexta) para desenvolve-la sobre uma tecnologia totalmente nova pra mim, mas fiz o mais completo que consegui.
 
 - Vasco da gama.
+![image](https://user-images.githubusercontent.com/67791717/233868935-c503a91c-d3d9-4094-967c-015ef270b02d.png)
